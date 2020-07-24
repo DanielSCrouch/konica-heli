@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heli-server-deployment 
+  labels: 
+    app: heli-server 
+spec:
+  selector:
+    matchLabels:
+      app: heli-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: heli-server
+    spec:
+      containers:
+      - name: heli-server 
+        image: duartcs/heliserver
+        ports:
+          - containerPort: 5000
+
+# kubectl apply -f s-deployment.yaml
