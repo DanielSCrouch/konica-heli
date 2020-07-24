@@ -28,29 +28,3 @@ While the perfect-sort program is likely far from it computationally, it opperat
 
 
 
-
-
-## Useful Commands
-```bash
-docker build -t duartcs/goproxy:latest . 
-
-kubectl get svc
-kubectl get deployments  
-
-kubectl delete service goserver-svc
-kubectl delete deployment go-server-deployment
-
-kubectl apply -f deployment.yaml
-
-eval `ssh-agent -s`
-ssh-add -K ~/.ssh/id_rsa_k8
-scp service.yaml ubuntu@10.40.1.229:~/
-
-curl -v 11.0.0.62:30163/foo
-curl -v 10.40.1.229:30163/foo
-
-kubectl logs go-server-deployment-7975c5ff6f-l9zw9
-
-curl -v http://192.168.1.101:8080/foo  
-curl -d "Much data…" http://192.168.1.101:8080/foo
-```
