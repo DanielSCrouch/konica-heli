@@ -8,7 +8,11 @@ A REST API server that coordinates the landing of helicopter API requests onto o
 
 All inbound helocopters must register with the Heliport before API access is granted uising the /register API termination point. The heliport registers the user in an SQLite3 database (local) using SQLAlchemy. Once registered a helicopter cient can then authorise using the /auth termination point. Suffcessful authentication grants the helicopter a time-sensitive authorisation token required for future (Stateless) API calls. Authentication is managed through the JWT library and an authentication and identification custom function. 
 
+### API Resources
+
 The heliport is exposed as a Flask Resource externally, and is modelled internally as a class object (Heliport) that is comprised of multiple Helipad objects. Inbound API requests are handled by the resource heloportR module. The module has a function for each termination point method and hands logic processing to the internal 'models' Heliport module.  
+
+### Modelling
 
 The Heliport object handles three requests (request_land, land and leave). The request_land function iterates through all pads on record and returns the id of the first that is free and avliable. The land and leave request both require this pad_id in order to either clear the respective landing pad, or store a helicopter within it. 
 
@@ -28,29 +32,3 @@ While the perfect-sort program is likely far from it computationally, it opperat
 
 
 
-
-
-## Useful Commands
-```bash
-docker build -t duartcs/goproxy:latest . 
-
-kubectl get svc
-kubectl get deployments  
-
-kubectl delete service goserver-svc
-kubectl delete deployment go-server-deployment
-
-kubectl apply -f deployment.yaml
-
-eval `ssh-agent -s`
-ssh-add -K ~/.ssh/id_rsa_k8
-scp service.yaml ubuntu@10.40.1.229:~/
-
-curl -v 11.0.0.62:30163/foo
-curl -v 10.40.1.229:30163/foo
-
-kubectl logs go-server-deployment-7975c5ff6f-l9zw9
-
-curl -v http://192.168.1.101:8080/foo  
-curl -d "Much data…" http://192.168.1.101:8080/foo
-```
