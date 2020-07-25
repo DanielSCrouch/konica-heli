@@ -19,7 +19,7 @@ class Helicopter(object):
                         "Connection": "keep-alive"}
         self.token = None
         self.pad_id = None
-        self.heli_name = random.randint(1, 10) # replace with UUID 
+        self.heli_name = random.randint(1, 10)  # replace with UUID
 
     def register(self, username='heli1', password='qwerty'):
         """Register username and password with API server"""
@@ -30,6 +30,7 @@ class Helicopter(object):
         r = requests.post(url,
                           json=payload,
                           headers=self.headers)
+        print(r)
         print('register response:', r.json())
         if r.status_code == 409:
             print("User already exists.")
@@ -58,17 +59,18 @@ class Helicopter(object):
 
     def request_land(self):
         """Request to land"""
-        url = "http://%s:%s%s" % (self.addr, self.port, '/heli')
+        url = "http://%s:%s%s" % (self.addr, self.port, '/heli/ ')
         print("GET:", url)
         r = requests.get(url, headers=self.headers)
-        data = r.json() 
+        print(r)
+        data = r.json()
         if r.status_code == 200:
             self.pad_id = data['pad_id']
-            print('cleared to land.')
+            print('cleared to land at', self.pad_id)
         else:
-            print('landing request refused') 
-    
-    def land(self): 
+            print('landing request refused')
+
+    def land(self):
         """Land on helipad"""
         url = "http://%s:%s%s" % (self.addr, self.port, '/heli/' + str(self.pad_id))
         payload = {"heli_name": self.heli_name}
@@ -81,11 +83,12 @@ class Helicopter(object):
 
     def leave(self):
         """Send deploy request to API Gateway"""
-        url = "http://%s:%s%s" % (self.addr, self.port, '/heli' + str(self.pad_id))
+        url = "http://%s:%s%s" % (self.addr, self.port, '/heli/' + str(self.pad_id))
         payload = {"heli_name": self.heli_name}
-        print("POST:", url)
+        print("DELETE:", url)
 
-        r = requests.delete(url, json=payload, headers=self.headers)
+        r = requests.delete(url, headers=self.headers)
+        print(r)
 
         data = r.json()
         print(data)
@@ -123,8 +126,8 @@ if __name__ == '__main__':
         client.register()
         client.authenticate()
         client.request_land()
-        client.land() 
-        client.leave() 
+        client.land()
+        client.leave()
         # client.close()
     except Exception as e:
         print("Exception:", e)

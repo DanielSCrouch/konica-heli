@@ -1,0 +1,21 @@
+# Environments
+.env
+.venv
+.env.save*
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+activate
+
+# Apple cloud
+.DS_Store
+
+# Py
+*.pyc
+/__pycache__
+__pycache__
+
+# DB 
+data.db
