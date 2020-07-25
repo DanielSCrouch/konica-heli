@@ -8,6 +8,7 @@ ENV/
 env.bak/
 venv.bak/
 activate
+/env
 
 # Apple cloud
 .DS_Store
