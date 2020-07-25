@@ -1,4 +1,4 @@
-# Konica Minolta: Industrial Heloptoper Coordination Software  
+# Konica Minolta: Industrial Helicopter Coordination Software  
 
 ## Heliport Overview
 
